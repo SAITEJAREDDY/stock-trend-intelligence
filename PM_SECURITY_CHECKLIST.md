@@ -1,66 +1,151 @@
-# PM Field Notes: 7 Rules I'd Put on a Wall
+# Security Review Guide for AI Agents
 
-Written after building Stock Trend Intelligence, not before. Each rule comes with the scar that taught it and the one question I would ask at a review. The longer, how-to version is the [Security Roadmap](SECURITY_ROADMAP.md).
+*Principles, review gates and a consolidated checklist, drawn from building Stock Trend Intelligence.*
 
-## 1. Give the model conclusions, not raw data
+## Purpose and scope
 
-**The scar:** I let the agent chew on multi-year price series and hit Azure token-rate errors. Raising the rate limit did not fix it. The fix was to do the math in Python and hand the agent a compact result plus chart links.
+This guide helps a product or program manager run a security review of an AI agent without needing to write the code. It combines seven principles, each backed by something that happened in this project, with a gate model and a single checklist at the end.
 
-**The question:** *What is the biggest thing the model ever sees?* Less data in the prompt is cheaper, faster and leaves less for anyone to inject into or leak.
+It is a practical framework, not a Microsoft requirement or a compliance standard. Adapt it to your organization's policies. The technical implementation steps are in the [Security Roadmap](SECURITY_ROADMAP.md).
 
-## 2. One tool, one verb, read-only
+## Part 1: Seven principles
 
-**The scar:** the playground failed because tool approvals were never supplied. I did not turn approvals off. I restricted the agent to a single tool, `get_stock_history`, and auto-approved only that one.
+### 1. Provide the model with conclusions, not raw data
 
-**The question:** *Can this tool change anything?* Name every tool and its approval mode. Read-only tools can be auto-approved. Anything that writes cannot.
+**Observed in this project:** passing multi-year price series to the agent produced Azure token-rate errors, and raising the deployment rate limit did not resolve it. Calculations and chart generation moved into Python, and the agent now receives a compact result with chart links.
 
-## 3. The safest secret is the one you never create
+**Review question:** what is the largest volume of data the model receives in a single call? Smaller inputs reduce cost, latency and the amount of content that can be manipulated or exposed.
 
-**The scar:** the Alpha Vantage route needed a provider API key, so I did not finish it and used Yahoo data through yfinance instead. The only secret in the whole system is the Telegram bot token, and it lives in the host environment, not the repo. The trade-off is real: the data is unofficial and personal-use only.
+### 2. Limit each agent to a small set of read-only tools
 
-**The question:** *How many secrets exist, who owns each, and how do I rotate it?* Then ask what you give up to avoid each one.
+**Observed in this project:** the Foundry playground failed because required tool approvals were not supplied. Approvals were not disabled. The agent was restricted to one tool, `get_stock_history`, and only that tool was auto-approved.
 
-## 4. Not every path needs a model
+**Review question:** can each tool modify or delete anything? Every tool should have a recorded access type and approval mode. Read-only tools may be auto-approved; write-capable tools should require explicit approval.
 
-**The scar:** the Telegram bot never calls an LLM. It parses a ticker, runs Python and sends back charts. No tokens spent, and no prompt for anyone to manipulate on that path.
+### 3. Minimize the number of secrets
 
-**The question:** *Which requests really need the model?* The ones that do not are your cheapest and safest features.
+**Observed in this project:** the Alpha Vantage integration required a provider API key and was not completed. The project uses Yahoo Finance data through yfinance, so the only secret is the Telegram bot token, held in the hosting environment and never committed. The trade-off is documented: the data source is unofficial and intended for personal or research use.
 
-## 5. Price the idle, not just the call
+**Review question:** how many secrets exist, who owns each one, how are they rotated, and what was traded away to avoid the others?
 
-**The scar:** a Qwen option on an A100 was quoted at about $3.95 per hour *including idle time*. I never deployed it. Two cheaper models were deprecated or out of quota in my project anyway.
+### 4. Use a model only where a model is needed
 
-**The question:** *What does this cost while nobody is using it, and where is the kill switch?* Set a budget and an alert before deploying, not after the bill.
+**Observed in this project:** the Telegram path never calls a language model. It parses the ticker, runs the Python analysis and returns the charts. That path consumes no Azure inference tokens and has no prompt to manipulate.
 
-## 6. Write the "N/A" on purpose
+**Review question:** which requests actually require a model? Deterministic paths are cheaper to run and easier to secure.
 
-**The scar:** one-week correlation shows N/A because five daily returns are not enough, and I would rather show nothing than a number that means nothing. Chart links expire after an hour. State resets on restart. All of it is written in the README.
+### 5. Evaluate cost at idle, not only per call
 
-**The question:** *What does this system refuse to say, and is that written down?* Honest limits stop users from over-trusting the output, and that is a security control.
+**Observed in this project:** a Qwen3.5-4B managed-compute option was quoted at about $3.95 per hour including idle time and was not deployed. GPT-4o mini was marked deprecated, and the GPT-4o mini and GPT-5 nano deployments lacked quota in this project.
 
-## 7. Discussed is not built
+**Review question:** what does the system cost while idle, and where are the budget alert and the shutdown procedure?
 
-**The scar:** I explored SMS through Twilio and created nothing: no account, no number, no billing. The notes say so, and the roadmap tracks Done and Gap in separate columns.
+### 6. Document what the system will not do
 
-**The question:** *Is every item labelled done, planned or only discussed?* A plan that reads like a status report is how risks get approved by accident.
+**Observed in this project:** one-week correlation returns N/A because five daily returns are below the ten-pair minimum. Chart links expire after one hour, and runtime state resets on restart. These limits are stated in the README.
 
-## The scar I expect next
+**Review question:** which outputs does the system intentionally withhold, and are those limits written where users will see them? Clear limits reduce over-reliance on the output.
 
-I have not earned this one yet, so treat it as a prediction from the docs, not experience: **publishing an agent switches its tool calls to a new identity, and permissions do not carry over.** After the first publish I will check the MCP role on the new identity before I announce anything.
+### 7. Separate what is built from what is planned
 
-## The gate card
+**Observed in this project:** SMS messaging through Twilio was evaluated but nothing was created: no account, number, registration or billing. The project notes record this explicitly, and the Security Roadmap marks each control as done or a gap.
 
-Six gates, one question each. If you cannot answer in one line with proof, the gate does not open.
+**Review question:** is every item labelled as done, planned or only discussed? Ambiguous status is how unimplemented controls get approved.
 
-| Gate | The one question | Proof I attach |
-|---|---|---|
-| 0 Intake | Who owns this, and what data does it touch? | Owner name and data class |
-| 1 Design | What does the model see, and which tools can it use? | Diagram and tool list |
-| 2 Pre-prod | What did I try to break, and what happened? | Negative tests: no token, wrong audience, missing role |
-| 3 Go-live | Who gets paged, and how do I turn it off? | Named on-call and a tested kill switch |
-| 4 After publish | What changed when the identity changed? | Role check on the published identity |
-| 5 Retire | What am I switching off, and who confirms? | Roles removed, tokens revoked, resources deleted |
+### Anticipated risk (not yet experienced)
 
-## Where this project is today
+This item is derived from Microsoft's Foundry documentation and has not been observed in this project. Publishing an agent as an Agent Application switches its tool calls from the project identity to a new application identity, and existing permissions do not carry over. After the first publish, the MCP role assignment must be verified on the new identity before the release is announced.
 
-Past Gate 0. Gate 1 passes with one logged exception: the public, unauthenticated `/mcp` endpoint, accepted for a read-only pilot on public data. Gates 2 and 3 are not yet. The next work is Phase 1 of the roadmap: token validation on `/mcp` with negative tests.
+## Part 2: Review gates
+
+A gate passes only when the named approver signs it. Exceptions are recorded with an owner and an expiry date.
+
+| Gate | Decision to be made | Required evidence | Approver |
+|---|---|---|---|
+| 0 Intake | Is the purpose, owner and data class clear? | Agent card, data classification | Sponsor |
+| 1 Design | Does every hop have a named identity and a bounded tool set? | Architecture diagram, permissions matrix, tool inventory | Security reviewer |
+| 2 Pre-production | Do the controls hold when tested adversarially? | Positive and negative test results, secret scan, log sample | Engineering lead and security reviewer |
+| 3 Go-live | Can the agent be operated and shut off? | Runbook, tested shutdown, named on-call, alert routing | Operations and sponsor |
+| 4 Post-launch (30 days) | Does real usage match the design? | Log review, cost comparison, role review | PM |
+| 5 Periodic and retirement | Should this agent still exist with these permissions? | Quarterly recertification, retirement record | Sponsor |
+
+**Current status of this project:** Gate 0 passed. Gate 1 passes with one recorded exception: the public, unauthenticated `/mcp` endpoint, accepted for a read-only pilot using public data. Gates 2 and 3 are not yet met. The next work item is Phase 1 of the roadmap: token validation on `/mcp` with negative tests.
+
+## Part 3: Consolidated checklist
+
+Use this list for every review. A gate is open only when all of its items are checked or have an approved, dated exception.
+
+### Gate 0: Intake
+
+- [ ] Named owner and sponsor recorded on the agent card
+- [ ] Purpose and intended users documented
+- [ ] Data classified (public, internal, confidential or regulated)
+- [ ] Data sources and their licence terms identified
+- [ ] Intended tools listed, each marked read-only or write-capable
+- [ ] Cross-boundary data flows identified, including calls to non-Microsoft services
+
+### Gate 1: Design
+
+- [ ] Architecture and data-flow diagram reviewed
+- [ ] Largest model input per call identified, and raw data kept out of the prompt where possible
+- [ ] Paths that do not need a model identified and kept deterministic
+- [ ] Identity and permissions matrix completed: identity, resource, role, scope, reason, approver, review date
+- [ ] Authentication method chosen for each tool connection
+- [ ] Each agent has its own identity with least-privilege roles
+- [ ] Unauthenticated endpoints recorded as accepted risks with an owner and expiry date
+- [ ] Approval mode set explicitly for every tool
+- [ ] Secrets inventoried with an owner and a rotation method for each
+- [ ] Threat and risk register started, with an owner for every top risk
+- [ ] Preview features listed, each with a fallback and a review date
+- [ ] Roadmap items labelled done, planned or discussed only
+
+### Gate 2: Pre-production
+
+- [ ] Positive test passed: the authorized agent can call the tool
+- [ ] Negative tests passed: no token, wrong audience, wrong tenant and missing role are all rejected
+- [ ] Token validation checks signature, audience, issuer, tenant and role
+- [ ] Secret scan of the repository and its full history completed and recorded
+- [ ] Guardrail and content-filter settings reviewed
+- [ ] Rate limits configured and tested
+- [ ] Logging and tracing enabled, and a test event located in the logs
+- [ ] Budget, cost alert and shutdown procedure defined
+- [ ] Known limits and intentionally withheld outputs documented for users
+
+### Gate 3: Go-live
+
+- [ ] Permissions re-verified on the published application's identity after publishing
+- [ ] Callers hold only the role they need, for example Foundry User on the application
+- [ ] Runbook written and rollback tested once
+- [ ] Shutdown or kill switch tested
+- [ ] Alerts routed to a named on-call person
+- [ ] Hosting suited to the trust boundary, including restart behavior and state loss
+- [ ] Open exceptions closed or re-approved with new expiry dates
+- [ ] Support and incident contacts published
+
+### Gate 4: Post-launch review (30 days)
+
+- [ ] Sign-in, audit and trace logs reviewed for unexpected callers or roles
+- [ ] Actual cost compared with the budget
+- [ ] Denied requests and guardrail hits reviewed
+- [ ] Every role assignment re-confirmed as still needed
+- [ ] Risk register updated with findings
+
+### Gate 5: Periodic review and retirement
+
+- [ ] Quarterly: owners, sponsors and role assignments recertified
+- [ ] Each release: negative tests and post-publish permission check repeated
+- [ ] After any Foundry change affecting identity or publishing: documentation and roadmap re-read
+- [ ] Retirement: agent disabled, role assignments removed, tokens revoked, unused resources deleted, evidence archived
+
+### Sign-off record
+
+```text
+Agent:           ____________________
+Gate:            ____________________
+Date:            ____________________
+Evidence pack:   ____________________ (link)
+Result:          PASS / PASS WITH EXCEPTIONS / BLOCKED
+Exceptions:      ID | description | owner | expiry date
+Approver(s):     ____________________
+Next review:     ____________________
+```
