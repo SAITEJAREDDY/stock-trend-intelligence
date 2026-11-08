@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 470" role="img" aria-label="Before and after: before, the agent received years of raw price rows and hit Azure token-rate errors; after, a Python backend computes statistics and charts and the agent receives a compact result with chart links.">
+<defs><marker id="r" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#f87171"/></marker><marker id="g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#2dd4bf"/></marker></defs>
+<rect width="1100" height="470" rx="24" fill="#0f172a"/>
+<text x="40" y="46" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="bold" fill="#fff" >What the model sees</text>
+<text x="40" y="72" font-family="Arial, Helvetica, sans-serif" font-size="14"  fill="#94a3b8" >The change that fixed the token-rate errors: move the math out of the prompt.</text>
+<rect x="30" y="95" width="500" height="350" rx="18" fill="#1a1020" stroke="#f87171" stroke-width="2"/>
+<text x="280" y="125" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#fca5a5" text-anchor="middle">BEFORE: raw data in the prompt</text>
+<rect x="130" y="145" width="300" height="56" rx="12" fill="#1e293b" stroke="#64748b" stroke-width="2" /><text x="280" y="178" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">Yahoo Finance history</text>
+<line x1="280" y1="201" x2="280" y2="226" stroke="#f87171" stroke-width="3" marker-end="url(#r)"/>
+<rect x="130" y="226" width="300" height="56" rx="12" fill="#3b1212" stroke="#f87171" stroke-width="2" stroke-dasharray="7 5"/><text x="280" y="250" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">Years of raw daily rows</text><text x="280" y="270" font-family="Arial, Helvetica, sans-serif" font-size="12"  fill="#cbd5e1" text-anchor="middle">multi-year series</text>
+<line x1="280" y1="282" x2="280" y2="307" stroke="#f87171" stroke-width="3" marker-end="url(#r)"/>
+<rect x="130" y="307" width="300" height="56" rx="12" fill="#1e293b" stroke="#64748b" stroke-width="2" /><text x="280" y="340" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">Agent (GPT-5 mini)</text>
+<text x="280" y="400" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#f87171" text-anchor="middle">Azure token-rate errors</text>
+<text x="280" y="422" font-family="Arial, Helvetica, sans-serif" font-size="12"  fill="#fca5a5" text-anchor="middle">a higher rate limit did not resolve it</text>
+<rect x="570" y="95" width="500" height="350" rx="18" fill="#0d2420" stroke="#2dd4bf" stroke-width="2"/>
+<text x="820" y="125" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#5eead4" text-anchor="middle">AFTER: conclusions in the prompt</text>
+<rect x="670" y="145" width="300" height="50" rx="12" fill="#1e293b" stroke="#64748b" stroke-width="2" /><text x="820" y="175" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">Yahoo Finance history</text>
+<line x1="820" y1="195" x2="820" y2="212" stroke="#2dd4bf" stroke-width="3" marker-end="url(#g)"/>
+<rect x="670" y="212" width="300" height="56" rx="12" fill="#134e4a" stroke="#2dd4bf" stroke-width="2" /><text x="820" y="236" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">Python backend</text><text x="820" y="256" font-family="Arial, Helvetica, sans-serif" font-size="12"  fill="#cbd5e1" text-anchor="middle">statistics and PNG charts</text>
+<line x1="820" y1="268" x2="820" y2="285" stroke="#2dd4bf" stroke-width="3" marker-end="url(#g)"/>
+<rect x="670" y="285" width="300" height="50" rx="12" fill="#134e4a" stroke="#2dd4bf" stroke-width="2" /><text x="820" y="315" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">Compact result + chart links</text>
+<line x1="820" y1="335" x2="820" y2="352" stroke="#2dd4bf" stroke-width="3" marker-end="url(#g)"/>
+<rect x="670" y="352" width="300" height="50" rx="12" fill="#1e293b" stroke="#64748b" stroke-width="2" /><text x="820" y="382" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">Agent explains the result</text>
+<text x="820" y="430" font-family="Arial, Helvetica, sans-serif" font-size="12"  fill="#5eead4" text-anchor="middle">one MCP call in analysis mode, then an explanation</text>
+</svg>
