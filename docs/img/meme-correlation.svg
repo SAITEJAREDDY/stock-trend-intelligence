@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-label="Meme: two stocks moved together for five days. A person celebrates a perfect correlation, while a Python snake with glasses says it needs ten returns, so the answer is N/A.">
+<rect width="800" height="520" fill="#fff" stroke="#111" stroke-width="4"/>
+<rect width="800" height="90" fill="#111"/>
+<text x="400" y="56" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="bold" fill="#fff" text-anchor="middle">TWO STOCKS MOVED TOGETHER FOR 5 DAYS</text>
+<rect x="20" y="106" width="370" height="324" rx="12" fill="#fef3c7" stroke="#111" stroke-width="3"/>
+<rect x="410" y="106" width="370" height="324" rx="12" fill="#dcfce7" stroke="#111" stroke-width="3"/>
+<rect x="45" y="124" width="320" height="64" rx="14" fill="#fff" stroke="#111" stroke-width="3"/>
+<text x="205" y="153" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="bold" fill="#111" text-anchor="middle">PERFECT CORRELATION!!</text>
+<text x="205" y="177" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#444" text-anchor="middle">I'm calling my broker</text>
+<circle cx="205" cy="262" r="34" fill="#fde68a" stroke="#111" stroke-width="4"/>
+<circle cx="192" cy="256" r="4" fill="#111"/><circle cx="218" cy="256" r="4" fill="#111"/>
+<path d="M190 274 Q205 292 220 274" fill="none" stroke="#111" stroke-width="4" stroke-linecap="round"/>
+<line x1="205" y1="296" x2="205" y2="378" stroke="#111" stroke-width="5" stroke-linecap="round"/>
+<line x1="205" y1="312" x2="150" y2="276" stroke="#111" stroke-width="5" stroke-linecap="round"/>
+<line x1="205" y1="312" x2="260" y2="276" stroke="#111" stroke-width="5" stroke-linecap="round"/>
+<line x1="205" y1="378" x2="170" y2="418" stroke="#111" stroke-width="5" stroke-linecap="round"/>
+<line x1="205" y1="378" x2="240" y2="418" stroke="#111" stroke-width="5" stroke-linecap="round"/>
+<text x="90" y="330" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#16a34a">MSFT +</text>
+<text x="270" y="330" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#d97706">NVDA +</text>
+<rect x="430" y="124" width="330" height="84" rx="14" fill="#fff" stroke="#111" stroke-width="3"/>
+<text x="595" y="154" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="bold" fill="#111" text-anchor="middle">Python: "5 returns."</text>
+<text x="595" y="184" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="bold" fill="#111" text-anchor="middle">"I need 10. N/A."</text>
+<path d="M470 410 C 470 350, 560 390, 580 335 C 600 285, 690 335, 705 290" fill="none" stroke="#16a34a" stroke-width="26" stroke-linecap="round"/>
+<circle cx="710" cy="278" r="28" fill="#16a34a" stroke="#14532d" stroke-width="3"/>
+<circle cx="700" cy="270" r="10" fill="#fff" stroke="#111" stroke-width="3"/><circle cx="722" cy="270" r="10" fill="#fff" stroke="#111" stroke-width="3"/>
+<line x1="710" y1="270" x2="712" y2="270" stroke="#111" stroke-width="3"/>
+<circle cx="700" cy="271" r="3" fill="#111"/><circle cx="722" cy="271" r="3" fill="#111"/>
+<path d="M702 292 L718 292" stroke="#14532d" stroke-width="3" stroke-linecap="round"/>
+<rect y="440" width="800" height="80" fill="#111"/>
+<text x="400" y="490" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="bold" fill="#fff" text-anchor="middle">1W correlation: N/A (and proud of it)</text>
+</svg>
