@@ -16,6 +16,8 @@ It is a practical framework, not a Microsoft requirement or a compliance standar
 
 **Review question:** what is the largest volume of data the model receives in a single call? Smaller inputs reduce cost, latency and the amount of content that can be manipulated or exposed.
 
+![Before and after diagram: raw price rows in the prompt caused token-rate errors; a Python backend now sends a compact result with chart links](docs/img/model-sees-less.svg)
+
 ### 2. Limit each agent to a small set of read-only tools
 
 **Observed in this project:** the Foundry playground failed because required tool approvals were not supplied. Approvals were not disabled. The agent was restricted to one tool, `get_stock_history`, and only that tool was auto-approved.
@@ -70,6 +72,8 @@ A gate passes only when the named approver signs it. Exceptions are recorded wit
 | 5 Periodic and retirement | Should this agent still exist with these permissions? | Quarterly recertification, retirement record | Sponsor |
 
 **Current status of this project:** Gate 0 passed. Gate 1 passes with one recorded exception: the public, unauthenticated `/mcp` endpoint, accepted for a read-only pilot using public data. Gates 2 and 3 are not yet met. The next work item is Phase 1 of the roadmap: token validation on `/mcp` with negative tests.
+
+![Six review gates from intake to retirement, showing Gate 0 passed, Gate 1 passed with one exception, and Gates 2 and 3 not yet met](docs/img/gate-flow.svg)
 
 ## Part 3: Consolidated checklist
 
