@@ -94,6 +94,10 @@ Never forward a Microsoft-audience token to your own server. Your server owns it
 
 Foundry can create a dedicated **agent identity** in Microsoft Entra for each agent. It is a service principal under an **agent identity blueprint**, and the blueprint holds a federated credential that trusts the Azure Machine Learning resource provider, so there is no client secret to store or leak.
 
+![Diagram of the agent identity model: a blueprint creates an agent identity that has no permissions until a role assignment grants access to the MCP API](docs/img/agent-identity-model.svg)
+
+*An original diagram of the model. Microsoft's own explanation and diagrams are in the [agent identity documentation](https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/agent-identity).*
+
 What matters for this project:
 
 - **Each agent gets its own identity in the current model.** The older model shared one identity across the whole project, which meant you could not scope permissions or audit to a single agent.
@@ -107,6 +111,10 @@ What matters for this project:
 ## Phase 3: Publish the agent
 
 Publishing turns a development agent into a managed Azure resource with a stable endpoint.
+
+![Diagram of the publish flow: agent version to Agent Application to deployment, called with an Entra token, with the identity switch that requires re-assigning roles](docs/img/publish-flow.svg)
+
+*An original diagram of the flow. See Microsoft's [publish an agent](https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/publish-agent) article for the official steps and screenshots.*
 
 - **What it creates:** an *Agent Application* with its own invocation URL, authentication policy, and a distinct Entra agent identity and blueprint, plus a *deployment* pointing at a specific agent version.
 - **Who can do what:** publishing needs **Foundry Project Manager** on the Foundry resource (account) scope. Calling the published endpoint needs **Foundry User** on the application scope. **Foundry Agent Consumer** does *not* grant access to Agent Applications.
