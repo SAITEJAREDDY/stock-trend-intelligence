@@ -4,6 +4,8 @@
 
 Enter one or more stock tickers and receive historical performance, return correlations and charts for 1D, 1W, 1M, 3M, 1Y and 3Y. Add a convenient messaging interface for a personal test.
 
+![Timeline of seven project steps, with obstacles in amber that changed the design](docs/img/project-journey.svg)
+
 ## What was implemented
 
 1. Cleaned the original Foundry instructions: removed copied setup prose and synthetic examples; removed repeated permission questions and promises of background work without tool execution.
@@ -15,6 +17,8 @@ Enter one or more stock tickers and receive historical performance, return corre
 7. Removed Code Interpreter and web search from the agent. The tested Foundry path now calls the MCP service once in analysis mode, then explains compact results and links to charts.
 8. Added a Telegram webhook, automatic registration from the Render environment token, ticker/alias commands, text replies, generated image uploads, duplicate-update checks, private-chat scope, throttling and a bounded worker queue.
 9. Confirmed nine automated tests and live backend/Foundry/Telegram checks. See VALIDATION.md.
+
+![Before and after diagram: raw price rows in the prompt caused token-rate errors; a Python backend now sends a compact result with chart links](docs/img/model-sees-less.svg)
 
 ## Model choices
 
