@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" role="img" aria-label="A phone chat asking COMPARE MSFT NVDA, and two rising stock lines with the title Stock Trend Intelligence">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0f172a"/><stop offset="1" stop-color="#1e3a8a"/></linearGradient></defs>
+<rect width="1200" height="360" rx="24" fill="url(#g)"/>
+<rect x="70" y="30" width="210" height="300" rx="30" fill="#0b1220" stroke="#94a3b8" stroke-width="4"/>
+<rect x="150" y="40" width="50" height="8" rx="4" fill="#334155"/>
+<rect x="88" y="80" width="174" height="40" rx="14" fill="#2563eb"/>
+<text x="175" y="105" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">COMPARE MSFT NVDA</text>
+<rect x="88" y="140" width="174" height="150" rx="14" fill="#1f2937"/>
+<polyline points="104,265 130,250 156,258 182,230 208,236 234,208" fill="none" stroke="#34d399" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="104,258 130,255 156,240 182,238 208,218 234,222" fill="none" stroke="#fbbf24" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="175" y="175" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#cbd5e1" text-anchor="middle">6 periods + charts</text>
+<text x="175" y="195" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">(you are very welcome)</text>
+<text x="330" y="100" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="bold" fill="#fff">Stock Trend Intelligence</text>
+<text x="330" y="146" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#cbd5e1">Ask your phone. Get the charts. Skip the spreadsheet.</text>
+<line x1="330" y1="320" x2="1090" y2="320" stroke="#475569" stroke-width="2"/>
+<polyline points="330,300 450,280 570,290 690,240 810,250 930,210 1050,200 1090,190" fill="none" stroke="#34d399" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="330,290 450,285 570,270 690,255 810,225 930,235 1050,215 1090,205" fill="none" stroke="#fbbf24" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="1100" y="195" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#34d399">MSFT</text>
+<text x="1100" y="225" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#fbbf24">NVDA</text>
+</svg>
